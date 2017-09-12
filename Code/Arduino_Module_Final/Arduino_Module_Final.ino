@@ -12,12 +12,12 @@
 
 //-----------------SD Card---------------------//
 #define SDCARD_CS_GPIO 3              // Chip Select pin is tied to pin 8 on the SparkFun SD Card Shield 
-const String FileName = "datalog.csv";// Filename.format
 bool wrote_in_5min = false;           // flag to write every 5 min
+bool new_file = false;                // flag to create new file everyday
 
 //-----------------TempSensors---------------------//
 #define ONE_WIRE_GPIO 5              // Data pin of the bus is connected to pin 4
-const uint8_t CALLIBRATION = 3;      // Used to callibrate the sensors (in C)
+const uint8_t CALLIBRATION = 2;      // Used to callibrate the sensors (in C)
 volatile uint8_t sensors_count = 0;
 // Setting up the interface for OneWire communication
 OneWire oneWire (ONE_WIRE_GPIO);
@@ -40,8 +40,10 @@ void setup()
   attachInterrupt(INT0, new_menu, FALLING);
   // RTC //
   rtc.begin();                      // initialize the library
-   // SDcard //
-   pinMode(SDCARD_CS_GPIO, OUTPUT);
+  // SDcard //
+  pinMode(SDCARD_CS_GPIO, OUTPUT);
+  // Display
+  menu = 0;
 }
 
 void loop() 
@@ -64,7 +66,6 @@ void loop()
     avg_temp /= sensors_count; 
   }
   // End TempSensors
-  Serial.println(avg_temp);
 
   //-----------------RTC---------------------//
   rtc.update();                       // updates: rtc.seconds(), rtc.minutes() etc..
@@ -88,6 +89,7 @@ void loop()
        if(!wrote_in_5min)
        {
           wrote_in_5min = true;
+          const String FileName = String(rtc.date()) + "_" + String(rtc.month()) + "_" + String(rtc.year()) + ".csv";
           bool header_printed = SD.exists(FileName);// Check if file already exist
           File dataFile = SD.open(FileName, FILE_WRITE);
           
@@ -140,7 +142,10 @@ void loop()
     if(sd_in) lcd.print(" SD");
     lcd.setCursor(0, 1);
     lcd.print("Found:" + String(sensors_count));
-    lcd.print(" Avg:" + String(avg_temp));
+    if (sensors_count < 10) 
+      lcd.print(" Avg:" + String(avg_temp));
+    else 
+      lcd.print("Avg:" + String(avg_temp));
   }
   else // in one of the tabs
   {
@@ -155,7 +160,7 @@ void loop()
     }
   }
   // End Display
-
+  
 }  // End Main
 
 //--------------Tab Interrupt--------------//
