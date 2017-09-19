@@ -12,7 +12,7 @@ void setup()
   rtc.begin(); // initialize the library
 
   //rtc.autoTime(); // sets the time automatically few sec lagg
-  rtc.setTime(30, 29, 16, 4, 16, 8, 17); // manually set time
+  rtc.setTime(30, 36, 12, 3, 19, 9, 17); // manually set time
   //          sec,min,hr,day,date,month,year
   // rtc.set12Hour(); // 12-hour mode
 
