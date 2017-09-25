@@ -89,7 +89,7 @@ void loop()
           const String FileName = String(rtc.date()) + "_" + String(rtc.month()) + "_" + String(rtc.year()) + ".csv";
           bool header_printed = SD.exists(FileName);// Check if file already exist
           File dataFile = SD.open(FileName, FILE_WRITE);
-          
+          // Writing to the file only if its open
           if (dataFile)   
           {  
             if(!header_printed)                     // printing headers
@@ -138,8 +138,9 @@ void loop()
     lcd.print(Date + " " + Time);
     if(sd_in) lcd.print(" SD");
     lcd.setCursor(0, 1);
-    lcd.print("All:" + String(sensors_count));
-    lcd.print(" Avg:" + String(avg_temp));
+    lcd.print("Found:" + String(sensors_count));
+    lcd.print(" Avg:");
+    lcd.print(avg_temp, 0);
   }
   else // in one of the tabs
   {
