@@ -8,7 +8,7 @@
 
 
 //-----------------SD Card---------------------//
-#define SDCARD_CS_GPIO 3              // Chip Select pin is tied to pin 8 on the SparkFun SD Card Shield 
+#define SDCARD_CS_GPIO 4              // Chip Select pin is tied to pin 8 on the SparkFun SD Card Shield 
 bool wrote_in_5min = false;           // flag to write every 5 min
 bool new_file = false;                // flag to create new file everyday
 

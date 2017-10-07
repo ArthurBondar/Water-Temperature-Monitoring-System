@@ -16,11 +16,10 @@
 
 //-----------------GPIO---------------------//
 #define INT0_GPIO 2                 // Menu Button
-// ****************** HAS TO BE CHANGED FROM 3 *******************************
 #define SDCARD_CS_GPIO 4            // Chip Select pin is tied to pin 8 on the SparkFun SD Card Shield 
 #define ONE_WIRE_GPIO 5             // Data pin of the bus is connected to pin 4
-#define NRF24_GPIO1 6               // nRF CE CS ?
-#define NRF24_GPIO2 7               // nRF CE CS ?
+#define NRF24_GPIO1 6               // nRF CE nRF24(
+#define NRF24_GPIO2 7               // nRF CS 
 #define INT1_GPIO 3                 // nRF IRQ interrupt pin
 
 //--------------------SD Card---------------------//
@@ -37,7 +36,7 @@ OneWire oneWire (ONE_WIRE_GPIO);
 DallasTemperature Dallas_Library(&oneWire);
 
 //--------------------nRF24--------------------------//
-RF24 radio(NRF24_GPIO1,NRF24_GPIO2);                     // nRF object
+RF24 radio(NRF24_GPIO1,NRF24_GPIO2);  // nRF object (uint8 CE, uint8 CS)
 // Assigning address based on module ID
 //*************************************************
 #define MODULE_ID 1  // CHANGE TO ASSIGN NEW ID MUST BE UNIQUE    
@@ -46,7 +45,7 @@ const uint64_t address = 0xe7e7e7e700LL | MODULE_ID; // building address
 volatile String new_message = " ";
 volatile bool nRF_error = true;
 // Radio Protocol Codes
-#define START_DATA "DATA"           // Code to start data transmittion
+#define START_DATA "START"           // Code to start data transmittion
 #define RECONFIGURE "CONFIG"         // Code to reconfiger sensor addresses
 #define TEMP_TYPE 1
 
@@ -56,8 +55,9 @@ LiquidCrystal_PCF8574 lcd(0x3f);    // set the LCD address to 0x27 for a 16 char
 // Button
 volatile byte menu = 0;
 volatile uint8_t _minute = 0;
+
 // Sensor structure with address and value
-struct oneWire_sensor
+struct oneWire_struct
 {
   byte address[8];
   float value;
@@ -84,24 +84,24 @@ void loop()   // MAIN LOOP
 {
   rtc.update();  
   // Update Screen every minute
-  if (_minute != rtc.minute());
+  if (_minute != rtc.minute())
   {
     _minute = rtc.minute();
     
     // Getting temperature
-    oneWire_count = TempSensors_init(); // Getting number of sensors
-    oneWire_sensor TempSensor[oneWire_count];// structure that holds the sensors
+    oneWire_count = TempSensors_init();       // Getting number of sensors
+    oneWire_struct TempSensor[oneWire_count]; // structure that holds the sensors
     for(int i = 0; i < oneWire_count; i++)
       TempSensors_getSensor(&TempSensor[i]);  // Getting value
 
     // Writing to SD
     // only writes every 5 miin
-    oneWire_sensor *p;
-    p = TempSensor;
-    SD_in = SD_write(&p);
+    oneWire_struct *pointer;
+    pointer = &TempSensor[0];
+    SD_in = SD_write(&pointer);
 
     //Displayin on the screen
-    Display_data(&p);
+    Display_data(&pointer);
   }
 
   if (new_message == START_DATA)
@@ -212,7 +212,11 @@ uint8_t TempSensors_init ()
   return _count;
 }
 
-void TempSensors_getSensor( oneWire_sensor *_sensor)
+/*
+ * Reading one sensor
+ * Modifing pointer for one sensor with address and value
+ */
+void TempSensors_getSensor( oneWire_struct *_sensor)
 {
   oneWire.search(_sensor->address);
   _sensor->value = Dallas_Library.getTempC(_sensor->address);
@@ -265,7 +269,7 @@ void new_menu ()
  * Function that write temp values to SD card
  * Writes every 5 min, only if SDcard present
  */
- bool SD_write ( oneWire_sensor **_sensor )
+ bool SD_write ( oneWire_struct **_sensor )
 {
   SDClass SD;                         // Create instance of SDclass
   bool sd_in = false;                 // SD in flag
@@ -332,7 +336,7 @@ void new_menu ()
  * Displays data fron sensors
  * prints the header page + following sensor pages
  */
-void Display_data ( oneWire_sensor **_sensor )
+void Display_data ( oneWire_struct **_sensor )
 {
   if(menu > (oneWire_count/4) + 1)            // Overflow the button
    menu = 0;
