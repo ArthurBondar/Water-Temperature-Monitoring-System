@@ -1,7 +1,7 @@
 /*
   Arduino Hot-Water-Temp module update with nRF24
   Module ID - 1
-  Updated: Oct 8, 2017
+  Updated: Oct 10, 2017
 */
 
 #include <Wire.h>                   // I2C Library
@@ -24,7 +24,6 @@
 
 //--------------------SD Card---------------------//
 bool wrote_in_5min = false;          // flag to write every 5 min
-bool new_file = false;               // flag to create new file everyday
 bool SD_in = false;
 
 //-----------------Dallas_Library-----------------//
@@ -41,25 +40,23 @@ RF24 radio(NRF24_GPIO1, NRF24_GPIO2); // nRF object (uint8 CE, uint8 CS)
 //*************************************************
 #define MODULE_ID 1  // CHANGE TO ASSIGN NEW ID MUST BE UNIQUE    
 //*************************************************
-const uint64_t address = 0xe7e7e7e700LL | MODULE_ID; // building address
-volatile String new_message = " ";
+#define ADDRESS 0xe7e7e7e700LL | MODULE_ID // building address
 volatile bool nRF_error = true;
 // Radio Protocol Codes
 #define START_DATA "START"           // Code to start data transmittion
-#define RECONFIGURE "CONFIG"         // Code to reconfiger sensor addresses
-#define TEMP_TYPE 1
+#define DELIM " "
+#define END_DATA "EOT"
 
 //-----------------LCD Controls------------------//
 LiquidCrystal_PCF8574 lcd(0x3f);    // set the LCD address to 0x27 for a 16 chars and 2 line display
 
 // Button
 volatile byte menu = 0;
-volatile uint8_t _minute = 0;
 
 // Sensor structure with address and value
 struct oneWire_struct
 {
-  byte address[8];
+  String address;
   float value;
 };
 
@@ -71,9 +68,6 @@ void setup()
   // Menu button interrupt
   pinMode(INT0_GPIO, INPUT_PULLUP); // Pin settup for a button
   attachInterrupt(INT0, new_menu, RISING);  // Pin setup for a button
-  // nRF24 new message interrupt
-  pinMode(INT1_GPIO, INPUT_PULLUP); // Pin settup for a button
-  attachInterrupt(INT1, nRF24_newMessage, FALLING);  // Pin setup for a button
   rtc.begin();                      // RTC init
   pinMode(SDCARD_CS_GPIO, OUTPUT);  // SD card ChipSelect
   nRF24_init();                     // nRF init
@@ -82,50 +76,45 @@ void setup()
 
 void loop()   // MAIN LOOP
 {
-  rtc.update();
-  
-  oneWire_struct *pointer; 
-  // Update Screen every minute
-  /*
-  if (_minute != rtc.minute())
-  {
-    _minute = rtc.minute();
+  rtc.update();                             // Getting new time reading
 
-*/
-  // Getting temperature
+  // Getting Sensor count
   oneWire_count = TempSensors_init();       // Getting number of sensors
   oneWire_struct TempSensor[oneWire_count]; // structure that holds the sensors
-  for (int i = 0; i < oneWire_count; i++)
-    TempSensors_getSensor(&TempSensor[i]);  // Getting value
+
+  // Creating a pointer to pass in the full array of structures
+  oneWire_struct *pointer = &TempSensor[0];
+
+  // Getting temperature
+  TempSensors_getTemp(&pointer);
 
   // Writing to SD
-  // only writes every 5 miin
-  pointer = &TempSensor[0];
   SD_in = SD_write(&pointer);
 
   //Displayin on the screen
   Display_data(&pointer);
- // }
 
-  if (new_message == START_DATA)
+  // If Server sent message
+  if (radio.available())
   {
-    new_message = " ";
-    /*
-      According to the protocol, sends:
-      1) Module ID + number of sensors
-      2) Type + Address + Value
-      3) End of tranmittion string EOT
-    */
-    // HEADER PACKET ----------
-    nRF_error = nRF24_send(String(MODULE_ID) + String(oneWire_count));
+    if (nRF24_read() == START_DATA) // starting the tranmittion
+    {
+      /*
+        According to the protocol, sends:
+        1) Module ID + number of sensors
+        2) Type + Address + Value
+        3) End of tranmittion string EOT
+      */
+      // HEADER PACKET
+      nRF_error = nRF24_send(String(MODULE_ID) + DELIM + String(oneWire_count));
 
-    // BODY PACKETS -----------
-    nRF_error = TempSensors_sendData(&pointer);
+      // BODY PACKETS
+      nRF_error = TempSensors_sendData(&pointer);
 
-    // EOT PACKET --------------
-    nRF_error = nRF24_send("EOT");
+      // EOT PACKET
+      nRF_error = nRF24_send(END_DATA);
+    }
   }
-
 
 }
 // END MAIN LOOP
@@ -143,9 +132,8 @@ void nRF24_init ()
   radio.setRetries(10, 15);           // Retries param1 = 250us*param1 , param2 = count
   radio.setChannel(110);              // Setting COM channel 0-125
   radio.enableDynamicPayloads();      // Calculate message lenght dynamically
-  radio.openWritingPipe(address);     // Writing pipe for this module
-  radio.openReadingPipe(0, address);  // Reading pipe (should be same as writing)
-  radio.maskIRQ(1, 1, 0);             // IRQ pin triggers masking (3 options when to trigger)
+  radio.openWritingPipe(ADDRESS);     // Writing pipe for this module
+  radio.openReadingPipe(0, ADDRESS);  // Reading pipe (should be same as writing)
   radio.printDetails();               // Printing debug details
   Serial.println("--------------------------------");
   radio.startListening();             // Start the radio listening for data (switch to RX mode)
@@ -157,15 +145,14 @@ void nRF24_init ()
 */
 String nRF24_read ()
 {
-  Serial.println("got message");    // DEBUG
+  Serial.println("IN: nRF24_read");    // DEBUG
   // Buffers for lenght and data
   uint8_t len = radio.getDynamicPayloadSize();
   char rx_buff[len];                // 32 is the max byte number
   // Reading data
   radio.read(&rx_buff, len);
   Serial.println("Got: *" + String(rx_buff) + "*"); //DEBUG
-  String message = String(rx_buff);
-  return message;
+  return String(rx_buff);
 }
 
 /*
@@ -175,6 +162,7 @@ String nRF24_read ()
 */
 bool nRF24_send (String _packet)
 {
+  Serial.println("IN: nRF24_send");    // DEBUG
   bool error = 0;                      // Tracks wether packet was received by the server
   char buff[32];                       // Buffer to hold the message
   if (_packet.length() < 32)           // Packets must be under 32 bytes
@@ -194,15 +182,6 @@ bool nRF24_send (String _packet)
 }
 
 /*
-   Interrupt 1 subroutine
-   Triggered by IRQ pin, changes new message flag
-*/
-void nRF24_newMessage()
-{
-  new_message = nRF24_read();
-}
-
-/*
    Initialized oneWire sensors + gets the number of sensors
 */
 uint8_t TempSensors_init ()
@@ -218,11 +197,19 @@ uint8_t TempSensors_init ()
    Reading one sensor
    Modifing pointer for one sensor with address and value
 */
-void TempSensors_getSensor( oneWire_struct *_sensor)
+void TempSensors_getTemp( oneWire_struct **_sensor)
 {
-  oneWire.search(_sensor->address);
-  _sensor->value = Dallas_Library.getTempC(_sensor->address);
-  _sensor->value -= CALLIBRATION;
+  byte _address[8];
+  for (int i = 0; i < oneWire_count; i++)
+  {
+    (*_sensor + i)->address.remove(0);  // clearing the address
+    oneWire.search(_address);
+    /* Converting byte array to string */
+    for (int j = 0; j < 8; j++)
+      (*_sensor + i)->address += String(_address[j]);
+    (*_sensor + i)->value = Dallas_Library.getTempC(_address);
+    (*_sensor + i)->value -= CALLIBRATION;
+  }
 }
 
 /*
@@ -233,17 +220,13 @@ void TempSensors_getSensor( oneWire_struct *_sensor)
 */
 bool TempSensors_sendData ( oneWire_struct **_sensor )
 {
+  Serial.println("IN: sendData");    // DEBUG
   bool error = 0;
-  String sAddress;
-
   for ( int i = 0; i < oneWire_count; i++)
   {
-    // Converting byte array to string
-    for (int j = 0; j < 8; j++)
-      sAddress += String((*_sensor+i)->address[j]);
     // Sending as strings
-    Serial.println(sAddress + "  " + String((*_sensor+i)->value)); // DEBUG
-    error = nRF24_send(String(MODULE_ID) + String(TEMP_TYPE) + sAddress + String((*_sensor+i)->value));
+    Serial.println((*_sensor + i)->address + DELIM + String((*_sensor + i)->value)); // DEBUG
+    error |= nRF24_send(String(MODULE_ID) + DELIM + (*_sensor + i)->address + DELIM + String((*_sensor + i)->value));
   }
   return error;
 }
@@ -267,32 +250,38 @@ void new_menu ()
 */
 bool SD_write ( oneWire_struct **_sensor )
 {
-  SDClass SD;                         // Create instance of SDclass
-  bool sd_in = false;                 // SD in flag
-  if (SD.begin(SDCARD_CS_GPIO))       // Writing to SD Card only when its present
+  Sd2Card card;                        // SD Card utility librady object
+  SDClass SD;                          // Create instance of SDclass
+  bool _sd_in = false;                 // SD in flag
+
+  /* If SD Card is present */
+  if (card.init(SPI_HALF_SPEED, SDCARD_CS_GPIO))
   {
-    sd_in = true;
-    // Printing data every 5 min
-    if ( rtc.minute() % 5 == 0)
+    _sd_in = true;
+    /* 5 min past since the last print */
+    if (rtc.minute() % 5 == 0)
     {
+      /* Havent printed in this minute window */
       if (!wrote_in_5min)
       {
         wrote_in_5min = true;
+        SD.begin(SDCARD_CS_GPIO);
         // Creating new file for every day, title - date
         const String FileName = String(rtc.date()) + "_" + String(rtc.month()) + "_" + String(rtc.year()) + ".csv";
+        String sAddress;
         bool header_printed = SD.exists(FileName);// Check if file already exist
         File dataFile = SD.open(FileName, FILE_WRITE);// File Pointer
-        // Writing to the file only if its open
+        /* Writing to the file only if its open */
         if (dataFile)
         {
           // HEADER //
           if (!header_printed)                    // printing headers
           {
             dataFile.print("Date,Time");
-
-            for (int i = 0; i < oneWire_count; i++) // Printing sensor headers
-              dataFile.print(",Sensor " + String(i + 1));
-
+            for (int i = 0; i < oneWire_count; i++) // Printing sensor addresses
+            {
+              dataFile.print("," + sAddress);
+            }
             dataFile.println();                  //create a new row to read data more clearly
           }
           // VALUES //
@@ -316,10 +305,10 @@ bool SD_write ( oneWire_struct **_sensor )
         }
       }
     }
-    else
-      wrote_in_5min = false;
+    else  /* Reseting the flag when passed the 5 min window */
+      wrote_in_5min = false;                      // Reseting the printing flag
   }
-  return sd_in;
+  return _sd_in;
 }
 
 /*
@@ -341,7 +330,7 @@ void Display_data ( oneWire_struct **_sensor )
     else
       Time = Time + String(rtc.minute());
     lcd.print(Date + " " + Time);
-    if (SD_in) lcd.print(" SD");
+    if (SD_in) lcd.print("SD");
     lcd.setCursor(0, 1);
     lcd.print("Found:" + String(oneWire_count));
     lcd.print(" Link:");
@@ -358,8 +347,8 @@ void Display_data ( oneWire_struct **_sensor )
       if ( ((menu - 1) * 4 + i) <= oneWire_count - 1 ) // Tab menu functions
       {
         lcd.setCursor((i * 8) % 16, i / 2);   // Positioning algorithm
-        lcd.print(String((menu - 1)*4 + i + 1) + ":");
-        lcd.print((*_sensor + ((menu - 1)*4 + i))->value, 1);
+        lcd.print(String((menu - 1) * 4 + i + 1) + ":");
+        lcd.print((*_sensor + ((menu - 1) * 4 + i))->value, 1);
       }
     }
   }
