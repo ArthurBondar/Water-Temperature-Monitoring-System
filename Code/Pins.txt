@@ -1,0 +1,3 @@
+I2C display:
+SDA: GPIO4 DPin 4
+SCK: GPIO5 DPin 5

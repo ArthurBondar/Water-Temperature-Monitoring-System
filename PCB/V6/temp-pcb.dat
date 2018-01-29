@@ -1,12 +1,12 @@
 Component:: 
       ID:                         0
-      Name:                       "IN"
-      Value:                      "HDR1X4"
+      Name:                       "PS"
+      Value:                      "HDR1X2"
       Package Database:           "Product"
       Package Manufacturer:       "Generic"
-      Package Type:               "HDR1X4"
-      Footprint:                  "HDR1X4"
-      Has Ports:                  4
+      Package Type:               "HDR1X2"
+      Footprint:                  "HDR1X2"
+      Has Ports:                  2
       Spacing:                    0
       Group:                      ""
       Pin Swapping:               0
@@ -16,13 +16,13 @@ Component::
       VariantIndependent:        0
 Component:: 
       ID:                         1
-      Name:                       "R1"
-      Value:                      "10k"
+      Name:                       "V_REG3_3V"
+      Value:                      "HDR1X3"
       Package Database:           "Product"
-      Package Manufacturer:       "IPC-2221A/2222"
-      Package Type:               "RES1300-700X250"
-      Footprint:                  "RES1300-700X250"
-      Has Ports:                  2
+      Package Manufacturer:       "Generic"
+      Package Type:               "HDR1X3"
+      Footprint:                  "HDR1X3"
+      Has Ports:                  3
       Spacing:                    0
       Group:                      ""
       Pin Swapping:               0
@@ -32,13 +32,13 @@ Component::
       VariantIndependent:        0
 Component:: 
       ID:                         2
-      Name:                       "C3"
-      Value:                      "220nF"
+      Name:                       "BUS1"
+      Value:                      "HDR1X3"
       Package Database:           "Product"
-      Package Manufacturer:       "IPC-2221A/2222"
-      Package Type:               "CAPPA1600-1000X450"
-      Footprint:                  "CAPPA1600-1000X450"
-      Has Ports:                  2
+      Package Manufacturer:       "Generic"
+      Package Type:               "HDR1X3"
+      Footprint:                  "HDR1X3"
+      Has Ports:                  3
       Spacing:                    0
       Group:                      ""
       Pin Swapping:               0
@@ -48,13 +48,13 @@ Component::
       VariantIndependent:        0
 Component:: 
       ID:                         3
-      Name:                       "C4"
-      Value:                      "220nF"
+      Name:                       "BUS3"
+      Value:                      "HDR1X3"
       Package Database:           "Product"
-      Package Manufacturer:       "IPC-2221A/2222"
-      Package Type:               "CAPPA1600-1000X450"
-      Footprint:                  "CAPPA1600-1000X450"
-      Has Ports:                  2
+      Package Manufacturer:       "Generic"
+      Package Type:               "HDR1X3"
+      Footprint:                  "HDR1X3"
+      Has Ports:                  3
       Spacing:                    0
       Group:                      ""
       Pin Swapping:               0
@@ -64,13 +64,13 @@ Component::
       VariantIndependent:        0
 Component:: 
       ID:                         4
-      Name:                       "R2"
-      Value:                      "10k"
+      Name:                       "BUS2"
+      Value:                      "HDR1X3"
       Package Database:           "Product"
-      Package Manufacturer:       "IPC-2221A/2222"
-      Package Type:               "RES1300-700X250"
-      Footprint:                  "RES1300-700X250"
-      Has Ports:                  2
+      Package Manufacturer:       "Generic"
+      Package Type:               "HDR1X3"
+      Footprint:                  "HDR1X3"
+      Has Ports:                  3
       Spacing:                    0
       Group:                      ""
       Pin Swapping:               0
@@ -80,13 +80,13 @@ Component::
       VariantIndependent:        0
 Component:: 
       ID:                         5
-      Name:                       "R3"
-      Value:                      "1k"
-      Package Database:           "Product"
+      Name:                       "U1"
+      Value:                      "esp8266_12"
+      Package Database:           "User"
       Package Manufacturer:       "IPC-2221A/2222"
-      Package Type:               "RES1300-700X250"
-      Footprint:                  "RES1300-700X250"
-      Has Ports:                  2
+      Package Type:               "DIP-16"
+      Footprint:                  "DIP16300"
+      Has Ports:                  16
       Spacing:                    0
       Group:                      ""
       Pin Swapping:               0
@@ -96,8 +96,8 @@ Component::
       VariantIndependent:        0
 Component:: 
       ID:                         6
-      Name:                       "R4"
-      Value:                      "1k"
+      Name:                       "R1"
+      Value:                      "2.2k"
       Package Database:           "Product"
       Package Manufacturer:       "IPC-2221A/2222"
       Package Type:               "RES1300-700X250"
@@ -112,54 +112,6 @@ Component::
       VariantIndependent:        0
 Component:: 
       ID:                         7
-      Name:                       "R5"
-      Value:                      "1k"
-      Package Database:           "Product"
-      Package Manufacturer:       "IPC-2221A/2222"
-      Package Type:               "RES1300-700X250"
-      Footprint:                  "RES1300-700X250"
-      Has Ports:                  2
-      Spacing:                    0
-      Group:                      ""
-      Pin Swapping:               0
-      Gate Swapping:              0
-      Lock:                       0
-      Variants:                  "Default1;"
-      VariantIndependent:        0
-Component:: 
-      ID:                         8
-      Name:                       "BUTTON"
-      Value:                      "HDR1X2"
-      Package Database:           "Product"
-      Package Manufacturer:       "Generic"
-      Package Type:               "HDR1X2"
-      Footprint:                  "HDR1X2"
-      Has Ports:                  2
-      Spacing:                    0
-      Group:                      ""
-      Pin Swapping:               0
-      Gate Swapping:              0
-      Lock:                       0
-      Variants:                  "Default1;"
-      VariantIndependent:        0
-Component:: 
-      ID:                         9
-      Name:                       "BUTTON1"
-      Value:                      "HDR1X2"
-      Package Database:           "Product"
-      Package Manufacturer:       "Generic"
-      Package Type:               "HDR1X2"
-      Footprint:                  "HDR1X2"
-      Has Ports:                  2
-      Spacing:                    0
-      Group:                      ""
-      Pin Swapping:               0
-      Gate Swapping:              0
-      Lock:                       0
-      Variants:                  "Default1;"
-      VariantIndependent:        0
-Component:: 
-      ID:                         10
       Name:                       "J1"
       Value:                      "HDR1X6"
       Package Database:           "Product"
@@ -179,8 +131,8 @@ Component::
 
 Node:: 
       ID:                         0
-      Name:                       "VCC"
-      Has ports:                  3
+      Name:                       "VDD"
+      Has ports:                  6
       Trace width max:            -1
       Trace width min:            -1
       Trace length max:           -1
@@ -194,36 +146,6 @@ Node::
       Routing PCB Group:          "
 Node:: 
       ID:                         1
-      Name:                       "1"
-      Has ports:                  2
-      Trace width max:            -1
-      Trace width min:            -1
-      Trace length max:           -1
-      Trace length min:           -1
-      Trace clearance to trace:   -1
-      Trace clearance to pad:     -1
-      Trace clearance to via:     -1
-      Trace clearance to copper:  -1
-      Routing PCB Layer:          "Top"
-      Lock:                       0
-      Routing PCB Group:          "
-Node:: 
-      ID:                         2
-      Name:                       "2"
-      Has ports:                  2
-      Trace width max:            -1
-      Trace width min:            -1
-      Trace length max:           -1
-      Trace length min:           -1
-      Trace clearance to trace:   -1
-      Trace clearance to pad:     -1
-      Trace clearance to via:     -1
-      Trace clearance to copper:  -1
-      Routing PCB Layer:          "Top"
-      Lock:                       0
-      Routing PCB Group:          "
-Node:: 
-      ID:                         3
       Name:                       "0"
       Has ports:                  7
       Trace width max:            -1
@@ -238,9 +160,39 @@ Node::
       Lock:                       0
       Routing PCB Group:          "
 Node:: 
+      ID:                         2
+      Name:                       "VCC"
+      Has ports:                  3
+      Trace width max:            -1
+      Trace width min:            -1
+      Trace length max:           -1
+      Trace length min:           -1
+      Trace clearance to trace:   -1
+      Trace clearance to pad:     -1
+      Trace clearance to via:     -1
+      Trace clearance to copper:  -1
+      Routing PCB Layer:          "Top"
+      Lock:                       0
+      Routing PCB Group:          "
+Node:: 
+      ID:                         3
+      Name:                       "5"
+      Has ports:                  5
+      Trace width max:            -1
+      Trace width min:            -1
+      Trace length max:           -1
+      Trace length min:           -1
+      Trace clearance to trace:   -1
+      Trace clearance to pad:     -1
+      Trace clearance to via:     -1
+      Trace clearance to copper:  -1
+      Routing PCB Layer:          "Top"
+      Lock:                       0
+      Routing PCB Group:          "
+Node:: 
       ID:                         4
-      Name:                       "VDD"
-      Has ports:                  4
+      Name:                       "3"
+      Has ports:                  2
       Trace width max:            -1
       Trace width min:            -1
       Trace length max:           -1
@@ -254,8 +206,8 @@ Node::
       Routing PCB Group:          "
 Node:: 
       ID:                         5
-      Name:                       "5"
-      Has ports:                  4
+      Name:                       "4"
+      Has ports:                  2
       Trace width max:            -1
       Trace width min:            -1
       Trace length max:           -1
@@ -269,8 +221,8 @@ Node::
       Routing PCB Group:          "
 Node:: 
       ID:                         6
-      Name:                       "3"
-      Has ports:                  4
+      Name:                       "1"
+      Has ports:                  2
       Trace width max:            -1
       Trace width min:            -1
       Trace length max:           -1
@@ -284,7 +236,7 @@ Node::
       Routing PCB Group:          "
 Node:: 
       ID:                         7
-      Name:                       "4"
+      Name:                       "2"
       Has ports:                  2
       Trace width max:            -1
       Trace width min:            -1
@@ -305,7 +257,7 @@ Port::
       ID_on_component:            0
       Name:                       "P1"
       Pin mapping name:           "1"
-      Linked with component:      "IN"
+      Linked with component:      "PS"
       Linked with component's ID: 0
       Linked with Node's ID:      0
       Pin type:                   "BIDIR"
@@ -316,230 +268,340 @@ Port::
       ID_on_component:            1
       Name:                       "P2"
       Pin mapping name:           "2"
-      Linked with component:      "IN"
+      Linked with component:      "PS"
       Linked with component's ID: 0
       Linked with Node's ID:      1
       Pin type:                   "BIDIR"
       Pin number:                 "2"
       Section:                    ""
 Port:: 
+      ID_on_node:                 1
+      ID_on_component:            0
+      Name:                       "P1"
+      Pin mapping name:           "1"
+      Linked with component:      "V_REG3_3V"
+      Linked with component's ID: 1
+      Linked with Node's ID:      1
+      Pin type:                   "BIDIR"
+      Pin number:                 "1"
+      Section:                    ""
+Port:: 
       ID_on_node:                 0
+      ID_on_component:            1
+      Name:                       "P2"
+      Pin mapping name:           "2"
+      Linked with component:      "V_REG3_3V"
+      Linked with component's ID: 1
+      Linked with Node's ID:      2
+      Pin type:                   "BIDIR"
+      Pin number:                 "2"
+      Section:                    ""
+Port:: 
+      ID_on_node:                 1
       ID_on_component:            2
       Name:                       "P3"
       Pin mapping name:           "3"
-      Linked with component:      "IN"
-      Linked with component's ID: 0
-      Linked with Node's ID:      2
+      Linked with component:      "V_REG3_3V"
+      Linked with component's ID: 1
+      Linked with Node's ID:      0
+      Pin type:                   "BIDIR"
+      Pin number:                 "3"
+      Section:                    ""
+Port:: 
+      ID_on_node:                 2
+      ID_on_component:            0
+      Name:                       "P1"
+      Pin mapping name:           "1"
+      Linked with component:      "BUS1"
+      Linked with component's ID: 2
+      Linked with Node's ID:      0
+      Pin type:                   "BIDIR"
+      Pin number:                 "1"
+      Section:                    ""
+Port:: 
+      ID_on_node:                 0
+      ID_on_component:            1
+      Name:                       "P2"
+      Pin mapping name:           "2"
+      Linked with component:      "BUS1"
+      Linked with component's ID: 2
+      Linked with Node's ID:      3
+      Pin type:                   "BIDIR"
+      Pin number:                 "2"
+      Section:                    ""
+Port:: 
+      ID_on_node:                 2
+      ID_on_component:            2
+      Name:                       "P3"
+      Pin mapping name:           "3"
+      Linked with component:      "BUS1"
+      Linked with component's ID: 2
+      Linked with Node's ID:      1
+      Pin type:                   "BIDIR"
+      Pin number:                 "3"
+      Section:                    ""
+Port:: 
+      ID_on_node:                 3
+      ID_on_component:            0
+      Name:                       "P1"
+      Pin mapping name:           "1"
+      Linked with component:      "BUS3"
+      Linked with component's ID: 3
+      Linked with Node's ID:      0
+      Pin type:                   "BIDIR"
+      Pin number:                 "1"
+      Section:                    ""
+Port:: 
+      ID_on_node:                 1
+      ID_on_component:            1
+      Name:                       "P2"
+      Pin mapping name:           "2"
+      Linked with component:      "BUS3"
+      Linked with component's ID: 3
+      Linked with Node's ID:      3
+      Pin type:                   "BIDIR"
+      Pin number:                 "2"
+      Section:                    ""
+Port:: 
+      ID_on_node:                 3
+      ID_on_component:            2
+      Name:                       "P3"
+      Pin mapping name:           "3"
+      Linked with component:      "BUS3"
+      Linked with component's ID: 3
+      Linked with Node's ID:      1
+      Pin type:                   "BIDIR"
+      Pin number:                 "3"
+      Section:                    ""
+Port:: 
+      ID_on_node:                 4
+      ID_on_component:            0
+      Name:                       "P1"
+      Pin mapping name:           "1"
+      Linked with component:      "BUS2"
+      Linked with component's ID: 4
+      Linked with Node's ID:      0
+      Pin type:                   "BIDIR"
+      Pin number:                 "1"
+      Section:                    ""
+Port:: 
+      ID_on_node:                 2
+      ID_on_component:            1
+      Name:                       "P2"
+      Pin mapping name:           "2"
+      Linked with component:      "BUS2"
+      Linked with component's ID: 4
+      Linked with Node's ID:      3
+      Pin type:                   "BIDIR"
+      Pin number:                 "2"
+      Section:                    ""
+Port:: 
+      ID_on_node:                 4
+      ID_on_component:            2
+      Name:                       "P3"
+      Pin mapping name:           "3"
+      Linked with component:      "BUS2"
+      Linked with component's ID: 4
+      Linked with Node's ID:      1
       Pin type:                   "BIDIR"
       Pin number:                 "3"
       Section:                    ""
 Port:: 
       ID_on_node:                 0
+      ID_on_component:            0
+      Name:                       "RST"
+      Pin mapping name:           "1"
+      Linked with component:      "U1"
+      Linked with component's ID: 5
+      Linked with Node's ID:      4
+      Pin type:                   "BIDIR"
+      Pin number:                 "1"
+      Section:                    ""
+Port:: 
+      ID_on_node:                 -1
+      ID_on_component:            1
+      Name:                       "ADC"
+      Pin mapping name:           "2"
+      Linked with component:      "U1"
+      Linked with component's ID: 5
+      Linked with Node's ID:      -1
+      Pin type:                   "BIDIR"
+      Pin number:                 "2"
+      Section:                    ""
+Port:: 
+      ID_on_node:                 -1
+      ID_on_component:            2
+      Name:                       "CH_PD/EN"
+      Pin mapping name:           "3"
+      Linked with component:      "U1"
+      Linked with component's ID: 5
+      Linked with Node's ID:      -1
+      Pin type:                   "BIDIR"
+      Pin number:                 "3"
+      Section:                    ""
+Port:: 
+      ID_on_node:                 -1
       ID_on_component:            3
-      Name:                       "P4"
+      Name:                       "IO16/WAKE"
       Pin mapping name:           "4"
-      Linked with component:      "IN"
-      Linked with component's ID: 0
-      Linked with Node's ID:      3
+      Linked with component:      "U1"
+      Linked with component's ID: 5
+      Linked with Node's ID:      -1
       Pin type:                   "BIDIR"
       Pin number:                 "4"
       Section:                    ""
 Port:: 
-      ID_on_node:                 0
-      ID_on_component:            0
-      Name:                       "1"
-      Pin mapping name:           "1"
-      Linked with component:      "R1"
-      Linked with component's ID: 1
-      Linked with Node's ID:      4
-      Pin type:                   "PASS"
-      Pin number:                 "1"
-      Section:                    ""
-Port:: 
-      ID_on_node:                 0
-      ID_on_component:            1
-      Name:                       "2"
-      Pin mapping name:           "2"
-      Linked with component:      "R1"
-      Linked with component's ID: 1
-      Linked with Node's ID:      5
-      Pin type:                   "PASS"
-      Pin number:                 "2"
-      Section:                    ""
-Port:: 
-      ID_on_node:                 1
-      ID_on_component:            0
-      Name:                       "2"
-      Pin mapping name:           "2"
-      Linked with component:      "C3"
-      Linked with component's ID: 2
-      Linked with Node's ID:      3
-      Pin type:                   "PASS"
-      Pin number:                 "2"
-      Section:                    ""
-Port:: 
-      ID_on_node:                 0
-      ID_on_component:            1
-      Name:                       "1"
-      Pin mapping name:           "1"
-      Linked with component:      "C3"
-      Linked with component's ID: 2
-      Linked with Node's ID:      6
-      Pin type:                   "PASS"
-      Pin number:                 "1"
-      Section:                    ""
-Port:: 
-      ID_on_node:                 2
-      ID_on_component:            0
-      Name:                       "2"
-      Pin mapping name:           "2"
-      Linked with component:      "C4"
-      Linked with component's ID: 3
-      Linked with Node's ID:      3
-      Pin type:                   "PASS"
-      Pin number:                 "2"
-      Section:                    ""
-Port:: 
-      ID_on_node:                 1
-      ID_on_component:            1
-      Name:                       "1"
-      Pin mapping name:           "1"
-      Linked with component:      "C4"
-      Linked with component's ID: 3
-      Linked with Node's ID:      5
-      Pin type:                   "PASS"
-      Pin number:                 "1"
-      Section:                    ""
-Port:: 
-      ID_on_node:                 1
-      ID_on_component:            0
-      Name:                       "1"
-      Pin mapping name:           "1"
-      Linked with component:      "R2"
-      Linked with component's ID: 4
-      Linked with Node's ID:      4
-      Pin type:                   "PASS"
-      Pin number:                 "1"
-      Section:                    ""
-Port:: 
-      ID_on_node:                 1
-      ID_on_component:            1
-      Name:                       "2"
-      Pin mapping name:           "2"
-      Linked with component:      "R2"
-      Linked with component's ID: 4
-      Linked with Node's ID:      6
-      Pin type:                   "PASS"
-      Pin number:                 "2"
-      Section:                    ""
-Port:: 
-      ID_on_node:                 2
-      ID_on_component:            0
-      Name:                       "1"
-      Pin mapping name:           "1"
-      Linked with component:      "R3"
+      ID_on_node:                 -1
+      ID_on_component:            4
+      Name:                       "IO14/CLK"
+      Pin mapping name:           "5"
+      Linked with component:      "U1"
       Linked with component's ID: 5
-      Linked with Node's ID:      4
-      Pin type:                   "PASS"
-      Pin number:                 "1"
+      Linked with Node's ID:      -1
+      Pin type:                   "BIDIR"
+      Pin number:                 "5"
       Section:                    ""
 Port:: 
-      ID_on_node:                 0
-      ID_on_component:            1
-      Name:                       "2"
-      Pin mapping name:           "2"
-      Linked with component:      "R3"
+      ID_on_node:                 -1
+      ID_on_component:            5
+      Name:                       "IO12/MISO"
+      Pin mapping name:           "6"
+      Linked with component:      "U1"
       Linked with component's ID: 5
-      Linked with Node's ID:      7
-      Pin type:                   "PASS"
-      Pin number:                 "2"
+      Linked with Node's ID:      -1
+      Pin type:                   "BIDIR"
+      Pin number:                 "6"
+      Section:                    ""
+Port:: 
+      ID_on_node:                 -1
+      ID_on_component:            6
+      Name:                       "IO13/MOSI"
+      Pin mapping name:           "7"
+      Linked with component:      "U1"
+      Linked with component's ID: 5
+      Linked with Node's ID:      -1
+      Pin type:                   "BIDIR"
+      Pin number:                 "7"
+      Section:                    ""
+Port:: 
+      ID_on_node:                 1
+      ID_on_component:            7
+      Name:                       "VCC"
+      Pin mapping name:           "8"
+      Linked with component:      "U1"
+      Linked with component's ID: 5
+      Linked with Node's ID:      2
+      Pin type:                   "BIDIR"
+      Pin number:                 "8"
+      Section:                    ""
+Port:: 
+      ID_on_node:                 5
+      ID_on_component:            8
+      Name:                       "GND"
+      Pin mapping name:           "9"
+      Linked with component:      "U1"
+      Linked with component's ID: 5
+      Linked with Node's ID:      1
+      Pin type:                   "BIDIR"
+      Pin number:                 "9"
+      Section:                    ""
+Port:: 
+      ID_on_node:                 -1
+      ID_on_component:            9
+      Name:                       "IO15"
+      Pin mapping name:           "10"
+      Linked with component:      "U1"
+      Linked with component's ID: 5
+      Linked with Node's ID:      -1
+      Pin type:                   "BIDIR"
+      Pin number:                 "10"
       Section:                    ""
 Port:: 
       ID_on_node:                 3
-      ID_on_component:            0
-      Name:                       "1"
-      Pin mapping name:           "1"
-      Linked with component:      "R4"
-      Linked with component's ID: 6
-      Linked with Node's ID:      4
-      Pin type:                   "PASS"
-      Pin number:                 "1"
-      Section:                    ""
-Port:: 
-      ID_on_node:                 1
-      ID_on_component:            1
-      Name:                       "2"
-      Pin mapping name:           "2"
-      Linked with component:      "R4"
-      Linked with component's ID: 6
-      Linked with Node's ID:      0
-      Pin type:                   "PASS"
-      Pin number:                 "2"
-      Section:                    ""
-Port:: 
-      ID_on_node:                 1
-      ID_on_component:            0
-      Name:                       "1"
-      Pin mapping name:           "1"
-      Linked with component:      "R5"
-      Linked with component's ID: 7
-      Linked with Node's ID:      7
-      Pin type:                   "PASS"
-      Pin number:                 "1"
-      Section:                    ""
-Port:: 
-      ID_on_node:                 3
-      ID_on_component:            1
-      Name:                       "2"
-      Pin mapping name:           "2"
-      Linked with component:      "R5"
-      Linked with component's ID: 7
+      ID_on_component:            10
+      Name:                       "IO2"
+      Pin mapping name:           "11"
+      Linked with component:      "U1"
+      Linked with component's ID: 5
       Linked with Node's ID:      3
-      Pin type:                   "PASS"
-      Pin number:                 "2"
+      Pin type:                   "BIDIR"
+      Pin number:                 "11"
       Section:                    ""
 Port:: 
-      ID_on_node:                 2
-      ID_on_component:            0
-      Name:                       "P1"
-      Pin mapping name:           "1"
-      Linked with component:      "BUTTON"
-      Linked with component's ID: 8
+      ID_on_node:                 0
+      ID_on_component:            11
+      Name:                       "FLASH/IO0"
+      Pin mapping name:           "12"
+      Linked with component:      "U1"
+      Linked with component's ID: 5
       Linked with Node's ID:      5
       Pin type:                   "BIDIR"
+      Pin number:                 "12"
+      Section:                    ""
+Port:: 
+      ID_on_node:                 -1
+      ID_on_component:            12
+      Name:                       "SDK/IO4"
+      Pin mapping name:           "13"
+      Linked with component:      "U1"
+      Linked with component's ID: 5
+      Linked with Node's ID:      -1
+      Pin type:                   "BIDIR"
+      Pin number:                 "13"
+      Section:                    ""
+Port:: 
+      ID_on_node:                 -1
+      ID_on_component:            13
+      Name:                       "SCK/IO5"
+      Pin mapping name:           "14"
+      Linked with component:      "U1"
+      Linked with component's ID: 5
+      Linked with Node's ID:      -1
+      Pin type:                   "BIDIR"
+      Pin number:                 "14"
+      Section:                    ""
+Port:: 
+      ID_on_node:                 0
+      ID_on_component:            14
+      Name:                       "RXD"
+      Pin mapping name:           "15"
+      Linked with component:      "U1"
+      Linked with component's ID: 5
+      Linked with Node's ID:      6
+      Pin type:                   "BIDIR"
+      Pin number:                 "15"
+      Section:                    ""
+Port:: 
+      ID_on_node:                 0
+      ID_on_component:            15
+      Name:                       "TXD"
+      Pin mapping name:           "16"
+      Linked with component:      "U1"
+      Linked with component's ID: 5
+      Linked with Node's ID:      7
+      Pin type:                   "BIDIR"
+      Pin number:                 "16"
+      Section:                    ""
+Port:: 
+      ID_on_node:                 2
+      ID_on_component:            0
+      Name:                       "1"
+      Pin mapping name:           "1"
+      Linked with component:      "R1"
+      Linked with component's ID: 6
+      Linked with Node's ID:      2
+      Pin type:                   "PASS"
       Pin number:                 "1"
       Section:                    ""
 Port:: 
       ID_on_node:                 4
       ID_on_component:            1
-      Name:                       "P2"
+      Name:                       "2"
       Pin mapping name:           "2"
-      Linked with component:      "BUTTON"
-      Linked with component's ID: 8
+      Linked with component:      "R1"
+      Linked with component's ID: 6
       Linked with Node's ID:      3
-      Pin type:                   "BIDIR"
-      Pin number:                 "2"
-      Section:                    ""
-Port:: 
-      ID_on_node:                 2
-      ID_on_component:            0
-      Name:                       "P1"
-      Pin mapping name:           "1"
-      Linked with component:      "BUTTON1"
-      Linked with component's ID: 9
-      Linked with Node's ID:      6
-      Pin type:                   "BIDIR"
-      Pin number:                 "1"
-      Section:                    ""
-Port:: 
-      ID_on_node:                 5
-      ID_on_component:            1
-      Name:                       "P2"
-      Pin mapping name:           "2"
-      Linked with component:      "BUTTON1"
-      Linked with component's ID: 9
-      Linked with Node's ID:      3
-      Pin type:                   "BIDIR"
+      Pin type:                   "PASS"
       Pin number:                 "2"
       Section:                    ""
 Port:: 
@@ -548,30 +610,30 @@ Port::
       Name:                       "P1"
       Pin mapping name:           "1"
       Linked with component:      "J1"
-      Linked with component's ID: 10
-      Linked with Node's ID:      3
+      Linked with component's ID: 7
+      Linked with Node's ID:      1
       Pin type:                   "BIDIR"
       Pin number:                 "1"
       Section:                    ""
 Port:: 
-      ID_on_node:                 3
+      ID_on_node:                 1
       ID_on_component:            1
       Name:                       "P2"
       Pin mapping name:           "2"
       Linked with component:      "J1"
-      Linked with component's ID: 10
-      Linked with Node's ID:      5
+      Linked with component's ID: 7
+      Linked with Node's ID:      4
       Pin type:                   "BIDIR"
       Pin number:                 "2"
       Section:                    ""
 Port:: 
-      ID_on_node:                 3
+      ID_on_node:                 1
       ID_on_component:            2
       Name:                       "P3"
       Pin mapping name:           "3"
       Linked with component:      "J1"
-      Linked with component's ID: 10
-      Linked with Node's ID:      6
+      Linked with component's ID: 7
+      Linked with Node's ID:      5
       Pin type:                   "BIDIR"
       Pin number:                 "3"
       Section:                    ""
@@ -581,8 +643,8 @@ Port::
       Name:                       "P4"
       Pin mapping name:           "4"
       Linked with component:      "J1"
-      Linked with component's ID: 10
-      Linked with Node's ID:      2
+      Linked with component's ID: 7
+      Linked with Node's ID:      6
       Pin type:                   "BIDIR"
       Pin number:                 "4"
       Section:                    ""
@@ -592,18 +654,18 @@ Port::
       Name:                       "P5"
       Pin mapping name:           "5"
       Linked with component:      "J1"
-      Linked with component's ID: 10
-      Linked with Node's ID:      1
+      Linked with component's ID: 7
+      Linked with Node's ID:      7
       Pin type:                   "BIDIR"
       Pin number:                 "5"
       Section:                    ""
 Port:: 
-      ID_on_node:                 2
+      ID_on_node:                 5
       ID_on_component:            5
       Name:                       "P6"
       Pin mapping name:           "6"
       Linked with component:      "J1"
-      Linked with component's ID: 10
+      Linked with component's ID: 7
       Linked with Node's ID:      0
       Pin type:                   "BIDIR"
       Pin number:                 "6"
