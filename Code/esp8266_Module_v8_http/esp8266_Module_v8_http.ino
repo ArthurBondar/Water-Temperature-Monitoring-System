@@ -9,7 +9,7 @@
 #include <PubSubClient.h>           // MQTT publisher/subscriber client 
 #include <stdio.h>
 
-#define DEBUG true
+#define DEBUG false
 
 //-----------------Dallas_Library-----------------//
 #define ONE_WIRE_GPIO 2               // Data pin of the bus is connected to pin 4
@@ -37,10 +37,7 @@ const char* mqtt_user =   "aerlab";
 const char* mqtt_pass =   "server";
 const char* mqtt_server = "aerlab.ddns.net";
 /* Topic Setup */
-const char* location =        "AERlab";
-const char* systemName =      "WaterTanks";
-const char* subSystem =       "Tank2";
-const char* transducerType =  "Temperature";
+const char* ID = "2"; // 1 - PVsolar 2 - ThermoDynamics
 char gTopic[64];                             // Stores the gTopic being sent
 float sampleRate = 1;                        // Sleep time for deepsleep in minutes
 
@@ -113,7 +110,7 @@ void loop()
 
     /* Publishing number of sensors */
     //MQTT
-    sprintf(gTopic, "%s/%s/%s/%s/%s/%s", location, systemName, subSystem, transducerType, "Status", "DeviceCount");
+    sprintf(gTopic, "%s/%s/%s", ID, "Status", "DeviceCount");
     published = client.publish(gTopic, String(oneWire_count).c_str());
     //HTTP
     httpCode = http.POST("DeviceCount:" + String(oneWire_count));
@@ -134,7 +131,7 @@ void loop()
       sprintf(sensor, "%s%d", "Sensor", i + 1);
       /* Publishing number each temp data */
       // MQTT
-      sprintf(gTopic, "%s/%s/%s/%s/%s/%s", location, systemName, subSystem, transducerType, "Data" , sensor);
+      sprintf(gTopic, "%s/%s/%s", ID, "Data" , sensor);
       published = client.publish(gTopic, String(TempSensor[i].value).c_str());
       // HTTP
       httpCode = http.POST("Sensor" + String(i + 1) + ":" + String(TempSensor[i].value));
