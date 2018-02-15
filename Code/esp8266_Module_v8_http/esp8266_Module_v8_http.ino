@@ -37,7 +37,7 @@ const char* mqtt_user =   "aerlab";
 const char* mqtt_pass =   "server";
 const char* mqtt_server = "aerlab.ddns.net";
 /* Topic Setup */
-const char* ID = "2"; // 1 - PVsolar 2 - ThermoDynamics
+const char* ID = "1"; // 1 - PVsolar 2 - ThermoDynamics
 char gTopic[64];                             // Stores the gTopic being sent
 float sampleRate = 1;                        // Sleep time for deepsleep in minutes
 
@@ -45,7 +45,8 @@ WiFiClient espClient;
 PubSubClient client(mqtt_server, 1883, espClient);
 String clientName;
 
-// HTTP
+//------------------HTTP-----------------------//
+const char* http_topic = "/Tank1";
 HTTPClient http;
 
 // ------------------SETUP--------------------//
@@ -98,7 +99,7 @@ void loop()
     String httpReturn;            // http return payload
 
     // HTTP Setup //
-    http.begin("192.168.2.111", 1880, "/Tank2");
+    http.begin("192.168.2.111", 1880, http_topic);
     http.addHeader("Content-Type", "text/plain");
 
     // Getting Sensor count
